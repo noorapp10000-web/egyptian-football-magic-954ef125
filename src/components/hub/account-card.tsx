@@ -14,6 +14,7 @@ export function AccountCard() {
 
   const signOut = async () => {
     await queryClient.cancelQueries();
+    queryClient.clear();
     await supabase.auth.signOut();
     navigate({ to: "/auth", replace: true });
   };

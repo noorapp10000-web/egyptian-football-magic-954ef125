@@ -7,13 +7,11 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { BottomNav } from "@/components/hub/bottom-nav";
 import { Toaster } from "@/components/ui/sonner";
-import { TEAM_CREST } from "@/lib/hub-types";
 import { useOfflinePersistence } from "@/lib/offline-cache";
 
 
@@ -138,46 +136,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background pb-24 font-[Cairo,system-ui,sans-serif]">
-        <header className="sticky top-0 z-30 border-b border-border/70 bg-background/85 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-3xl items-center justify-between gap-2.5 px-4 py-3">
-            <Link to="/" className="flex items-center gap-2.5">
-              <img src={TEAM_CREST} alt="شعار النادي المصري" className="size-8 object-contain" />
-              <span className="text-sm font-black tracking-tight">MASRAWY FAN</span>
-            </Link>
-            <OfflineBadge />
-          </div>
-        </header>
-        <main className="mx-auto max-w-3xl px-4 py-5">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </main>
-        <BottomNav />
-        <Toaster position="top-center" />
-      </div>
+      <Outlet />
+      <Toaster position="top-center" />
     </QueryClientProvider>
-  );
-}
-
-function OfflineBadge() {
-  const [offline, setOffline] = useState(false);
-
-  useEffect(() => {
-    const sync = () => setOffline(!navigator.onLine);
-    sync();
-    window.addEventListener("online", sync);
-    window.addEventListener("offline", sync);
-    return () => {
-      window.removeEventListener("online", sync);
-      window.removeEventListener("offline", sync);
-    };
-  }, []);
-
-  if (!offline) return null;
-  return (
-    <span className="rounded-full bg-gold/15 px-2.5 py-1 text-[10px] font-bold text-gold">
-      بدون إنترنت · نسخة محفوظة
-    </span>
   );
 }
 

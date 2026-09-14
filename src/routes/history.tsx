@@ -23,17 +23,12 @@ import { COACH_HISTORY, RECORD_PLAYERS } from "@/lib/history-data";
 import { HONOURS, IDENTITY, LEAGUE_CUP_PATH, PRESIDENTS, SOURCES, TIMELINE } from "@/lib/history-content";
 import { LEGENDS, PRESIDENT_PHOTOS, TOP_SCORERS } from "@/lib/history-people";
 import { TEAM_CREST } from "@/lib/hub-types";
-import capitalCupSquad from "@/assets/celebrations/capital-cup-squad.jpg.asset.json";
-import championsTrophy from "@/assets/celebrations/champions-trophy.jpg.asset.json";
-import playersCelebration from "@/assets/celebrations/players-celebration.jpg.asset.json";
-import ultrasTifo from "@/assets/celebrations/ultras-tifo.jpg.asset.json";
 
-const CUP_GALLERY = [
-  { src: championsTrophy.url, caption: "لحظة رفع كأس عاصمة مصر 2026" },
-  { src: playersCelebration.url, caption: "فرحة اللاعبين بعد صافرة النهاية" },
-  { src: ultrasTifo.url, caption: "تيفو جمهور المصري في المدرجات" },
-  { src: capitalCupSquad.url, caption: "فريق المصري بطل كأس عاصمة مصر 2026" },
-];
+const CUP_EXTENSIONS = ["jpeg", "jpg", "jpg", "jpeg", "jpg", "jpeg", "jpeg", "jpeg", "jpg", "jpeg", "jpeg", "jpeg", "jpg", "jpeg", "jpeg", "jpg", "jpg", "jpg", "jpg", "jpeg", "jpg"];
+const CUP_GALLERY = CUP_EXTENSIONS.map((extension, index) => ({
+  src: `/images/cup/cup-${String(index + 1).padStart(2, "0")}.${extension}`,
+  caption: `من رحلة تتويج المصري بكأس عاصمة مصر 2026 — صورة ${index + 1}`,
+}));
 
 
 export const Route = createFileRoute("/history")({
