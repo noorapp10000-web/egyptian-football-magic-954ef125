@@ -194,8 +194,8 @@ function MatchDetailPage() {
         </TabsList>
 
         <TabsContent value="events" className="mt-4 space-y-2">
-          {m.timeline.length === 0 && <ErrorNote>لا توجد أحداث مسجلة لهذه المباراة بعد.</ErrorNote>}
-          {m.timeline.map((e) => (
+          {m.events.length === 0 && <ErrorNote>لا توجد أحداث مسجلة لهذه المباراة بعد.</ErrorNote>}
+          {m.events.map((e) => (
             <div
               key={`${e.derived ? "d" : "o"}-${e.id}`}
               className="flex items-start justify-between gap-3 rounded-2xl border border-border/70 bg-card px-3 py-2.5"
