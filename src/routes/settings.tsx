@@ -4,11 +4,13 @@ import { BellRing, Check, Settings as SettingsIcon, Trash2, UserRound } from "lu
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+import { AccountCard } from "@/components/hub/account-card";
 import { SectionHeading } from "@/components/hub/shared";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { NOTIFICATION_TYPES, usePrefs } from "@/lib/prefs";
+import { usePrefsSync } from "@/lib/prefs-sync";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -40,9 +42,23 @@ function SettingsPage() {
     if (ready) setName(prefs.username);
   }, [ready, prefs.username]);
 
-  const saveName = () => {
-    update({ username: name.trim() });
-    toast.success("تم حفظ الاسم");
+  const { saveUsername, saveNotifications, signedIn } = usePrefsSync(prefs, ready, update);
+
+  const saveName = async () => {
+    const value = name.trim();
+    update({ username: value });
+    await saveUsername(value);
+    toast.success(signedIn ? "تم حفظ الاسم على حسابك" : "تم حفظ الاسم");
+  };
+
+  const setNotificationsEnabled = (v: boolean) => {
+    update({ notificationsEnabled: v });
+    void saveNotifications(v, prefs.notifications);
+  };
+
+  const setNotificationType = (key: string, v: boolean) => {
+    toggleNotification(key, v);
+    void saveNotifications(prefs.notificationsEnabled, { ...prefs.notifications, [key]: v });
   };
 
   const clearCache = async () => {
@@ -59,6 +75,9 @@ function SettingsPage() {
   return (
     <div className="space-y-6">
       <SectionHeading icon={<SettingsIcon className="size-4" />} title="الإعدادات" />
+
+      <AccountCard />
+
 
       <section className="space-y-3 rounded-2xl border border-border/70 bg-card p-4">
         <h3 className="flex items-center gap-2 text-sm font-black">
@@ -86,7 +105,7 @@ function SettingsPage() {
           </h3>
           <Switch
             checked={prefs.notificationsEnabled}
-            onCheckedChange={(v) => update({ notificationsEnabled: v })}
+            onCheckedChange={setNotificationsEnabled}
             aria-label="تفعيل كل الإشعارات"
           />
         </div>
@@ -106,7 +125,7 @@ function SettingsPage() {
               </span>
               <Switch
                 checked={prefs.notifications[t.key] ?? true}
-                onCheckedChange={(v) => toggleNotification(t.key, v)}
+                onCheckedChange={(v) => setNotificationType(t.key, v)}
                 aria-label={t.label}
               />
             </li>

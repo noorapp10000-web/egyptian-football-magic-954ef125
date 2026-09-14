@@ -17,7 +17,8 @@ const Switch = React.forwardRef<
   >
     <SwitchPrimitives.Thumb
       className={cn(
-        "pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0",
+        // margin-inline-start يحترم اتجاه الصفحة (RTL/LTR) بعكس translate-x.
+        "pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-[margin] duration-200 data-[state=checked]:ms-4 data-[state=unchecked]:ms-0",
       )}
     />
   </SwitchPrimitives.Root>

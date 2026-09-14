@@ -177,10 +177,21 @@ function MatchDetailPage() {
       </div>
 
 
-      <Tabs defaultValue={m.events.length > 0 ? "events" : hasLineups ? "lineups" : "stats"} dir="rtl">
+      <Tabs
+        defaultValue={
+          m.events.length > 0
+            ? "events"
+            : m.commentary.length > 0
+              ? "commentary"
+              : hasLineups
+                ? "lineups"
+                : "stats"
+        }
+        dir="rtl"
+      >
         <TabsList className="grid w-full grid-cols-4 rounded-2xl">
           <TabsTrigger value="events" className="rounded-xl text-xs">
-            الأحداث
+            أحداث المباراة
           </TabsTrigger>
           <TabsTrigger value="stats" className="rounded-xl text-xs">
             الإحصائيات
@@ -189,13 +200,13 @@ function MatchDetailPage() {
             التشكيل
           </TabsTrigger>
           <TabsTrigger value="commentary" className="rounded-xl text-xs">
-            التعليق
+            دقيقة بدقيقة
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="events" className="mt-4 space-y-2">
-          {m.timeline.length === 0 && <ErrorNote>لا توجد أحداث مسجلة لهذه المباراة بعد.</ErrorNote>}
-          {m.timeline.map((e) => (
+          {m.events.length === 0 && <ErrorNote>لا توجد أحداث مسجلة لهذه المباراة بعد.</ErrorNote>}
+          {m.events.map((e) => (
             <div
               key={`${e.derived ? "d" : "o"}-${e.id}`}
               className="flex items-start justify-between gap-3 rounded-2xl border border-border/70 bg-card px-3 py-2.5"
