@@ -525,6 +525,63 @@ export function parseMatchDetail(html: string): MatchDetail | null {
   };
 }
 
+/* ---------------- كل أحداث المباراة من صفحة "أحداث المباراة" في الجول ---------------- */
+
+/**
+ * صفحة /matches/{id}/coverage/{slug} فيها قائمة الأحداث الكاملة (تبديلات، إنذارات،
+ * ركنيات، إصابات، أهداف...) وهي أكثر من قائمة Events المختصرة في بيانات الصفحة الرئيسية.
+ */
+export function parseCoverageEvents(
+  html: string,
+  homeTeam: { id: number; name: string },
+  awayTeam: { id: number; name: string },
+): MatchEvent[] {
+  const start = html.indexOf("match-events-container");
+  if (start === -1) return [];
+  const end = html.indexOf("</ul>", start);
+  if (end === -1) return [];
+  const block = html.slice(start, end);
+
+  const events: MatchEvent[] = [];
+  let half: string | null = null;
+  let autoId = -1;
+
+  for (const item of block.split(/<li\b/i).slice(1)) {
+    const heading = item.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i);
+    if (heading) {
+      half = decode(heading[1]!).trim() || half;
+      continue;
+    }
+    const timeBlock = item.match(/<span[^>]*>([\s\S]*?)<\/span>/i)?.[1] ?? "";
+    const addedTime = num(timeBlock.match(/<b[^>]*>\s*\+?(\d+)/i)?.[1] ?? null);
+    const minute = num(timeBlock.replace(/<b[\s\S]*?<\/b>/gi, ""));
+
+    for (const p of item.matchAll(/<p class="([rl])"[^>]*>([\s\S]*?)<\/p>/gi)) {
+      const side = p[1] === "r" ? homeTeam : awayTeam;
+      const body = p[2]!;
+      const type = decode(body.match(/alt="([^"]*)"/i)?.[1] ?? "").trim();
+      const anchor = body.match(/<a[^>]*href="\/players\/(\d+)[^"]*"[^>]*>([\s\S]*?)<\/a>/i);
+      const player = anchor ? decode(anchor[2]!).trim() : null;
+      if (!type && !player) continue;
+      events.push({
+        id: anchor ? Number(anchor[1]) * 1000 + events.length : autoId--,
+        minute,
+        addedTime,
+        type,
+        half,
+        teamId: side.id,
+        teamName: side.name,
+        player,
+        playerPhotoUrl: null,
+        relatedPlayer: null,
+      });
+    }
+  }
+
+  // الصفحة بتعرض الأحدث أولاً — نرجّعها بالترتيب الزمني الطبيعي.
+  return events.reverse();
+}
+
 /* ------------------- كل أحداث المباراة (رسمية + مستنتجة من التعليق) ------------------ */
 
 /** أنماط الأحداث اللي "في الجول" بيذكرها في التعليق الحي فقط. */
