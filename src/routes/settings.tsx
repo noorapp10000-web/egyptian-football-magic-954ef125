@@ -4,11 +4,13 @@ import { BellRing, Check, Settings as SettingsIcon, Trash2, UserRound } from "lu
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+import { AccountCard } from "@/components/hub/account-card";
 import { SectionHeading } from "@/components/hub/shared";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { NOTIFICATION_TYPES, usePrefs } from "@/lib/prefs";
+import { usePrefsSync } from "@/lib/prefs-sync";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
