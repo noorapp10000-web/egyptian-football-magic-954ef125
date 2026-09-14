@@ -191,7 +191,7 @@ function MatchDetailPage() {
       >
         <TabsList className="grid w-full grid-cols-4 rounded-2xl">
           <TabsTrigger value="events" className="rounded-xl text-xs">
-            الأحداث
+            أحداث المباراة
           </TabsTrigger>
           <TabsTrigger value="stats" className="rounded-xl text-xs">
             الإحصائيات
@@ -200,7 +200,7 @@ function MatchDetailPage() {
             التشكيل
           </TabsTrigger>
           <TabsTrigger value="commentary" className="rounded-xl text-xs">
-            التعليق
+            دقيقة بدقيقة
           </TabsTrigger>
         </TabsList>
 
