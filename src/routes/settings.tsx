@@ -76,6 +76,9 @@ function SettingsPage() {
     <div className="space-y-6">
       <SectionHeading icon={<SettingsIcon className="size-4" />} title="الإعدادات" />
 
+      <AccountCard />
+
+
       <section className="space-y-3 rounded-2xl border border-border/70 bg-card p-4">
         <h3 className="flex items-center gap-2 text-sm font-black">
           <UserRound className="size-4 text-primary" /> اسم المستخدم
@@ -102,7 +105,7 @@ function SettingsPage() {
           </h3>
           <Switch
             checked={prefs.notificationsEnabled}
-            onCheckedChange={(v) => update({ notificationsEnabled: v })}
+            onCheckedChange={setNotificationsEnabled}
             aria-label="تفعيل كل الإشعارات"
           />
         </div>
@@ -122,7 +125,7 @@ function SettingsPage() {
               </span>
               <Switch
                 checked={prefs.notifications[t.key] ?? true}
-                onCheckedChange={(v) => toggleNotification(t.key, v)}
+                onCheckedChange={(v) => setNotificationType(t.key, v)}
                 aria-label={t.label}
               />
             </li>
