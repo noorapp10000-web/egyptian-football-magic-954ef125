@@ -177,7 +177,18 @@ function MatchDetailPage() {
       </div>
 
 
-      <Tabs defaultValue={m.events.length > 0 ? "events" : hasLineups ? "lineups" : "stats"} dir="rtl">
+      <Tabs
+        defaultValue={
+          m.events.length > 0
+            ? "events"
+            : m.commentary.length > 0
+              ? "commentary"
+              : hasLineups
+                ? "lineups"
+                : "stats"
+        }
+        dir="rtl"
+      >
         <TabsList className="grid w-full grid-cols-4 rounded-2xl">
           <TabsTrigger value="events" className="rounded-xl text-xs">
             الأحداث
