@@ -7,7 +7,7 @@ import { ErrorNote, SectionHeading, SectionSkeleton, SourceNote } from "@/compon
 import { Badge } from "@/components/ui/badge";
 import { RefreshButton } from "@/components/hub/refresh-button";
 
-export const Route = createFileRoute("/news")({
+export const Route = createFileRoute("/_authenticated/news")({
   head: () => ({
     meta: [
       { title: "أخبار النادي المصري البورسعيدي | آخر المستجدات" },
