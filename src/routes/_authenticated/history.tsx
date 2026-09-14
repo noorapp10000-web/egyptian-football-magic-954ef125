@@ -16,6 +16,10 @@ import {
   Users,
 } from "lucide-react";
 
+import cupCelebration from "@/assets/gallery/cup-celebration.jpg.asset.json";
+import cupPodium from "@/assets/gallery/cup-podium.jpg.asset.json";
+import cupPoster from "@/assets/gallery/cup-poster.jpg.asset.json";
+import cupTifo from "@/assets/gallery/cup-tifo.jpg.asset.json";
 import { SectionHeading } from "@/components/hub/shared";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,11 +28,12 @@ import { HONOURS, IDENTITY, LEAGUE_CUP_PATH, PRESIDENTS, SOURCES, TIMELINE } fro
 import { LEGENDS, PRESIDENT_PHOTOS, TOP_SCORERS } from "@/lib/history-people";
 import { TEAM_CREST } from "@/lib/hub-types";
 
-const CUP_EXTENSIONS = ["jpeg", "jpg", "jpg", "jpeg", "jpg", "jpeg", "jpeg", "jpeg", "jpg", "jpeg", "jpeg", "jpeg", "jpg", "jpeg", "jpeg", "jpg", "jpg", "jpg", "jpg", "jpeg", "jpg"];
-const CUP_GALLERY = CUP_EXTENSIONS.map((extension, index) => ({
-  src: `/images/cup/cup-${String(index + 1).padStart(2, "0")}.${extension}`,
-  caption: `من رحلة تتويج المصري بكأس عاصمة مصر 2026 — صورة ${index + 1}`,
-}));
+const CUP_GALLERY = [
+  { src: cupPoster.url, caption: "البوستر الرسمي لتتويج المصري بكأس عاصمة مصر 2026" },
+  { src: cupPodium.url, caption: "لحظة رفع الكأس وسط الاحتفالات على منصة التتويج" },
+  { src: cupCelebration.url, caption: "احتفال اللاعبين باللقب أمام جماهير بورسعيد" },
+  { src: cupTifo.url, caption: "تيفو جماهير المصري في المدرجات ليلة النهائي" },
+];
 
 
 export const Route = createFileRoute("/_authenticated/history")({
