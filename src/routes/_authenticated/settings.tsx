@@ -12,7 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { NOTIFICATION_TYPES, usePrefs } from "@/lib/prefs";
 import { usePrefsSync } from "@/lib/prefs-sync";
 
-export const Route = createFileRoute("/settings")({
+export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
       { title: "الإعدادات | Masrawy Fan" },

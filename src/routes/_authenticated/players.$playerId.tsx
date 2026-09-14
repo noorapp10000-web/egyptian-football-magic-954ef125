@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export const Route = createFileRoute("/players/$playerId")({
+export const Route = createFileRoute("/_authenticated/players/$playerId")({
   head: () => ({
     meta: [
       { title: "بيانات اللاعب | المصري بورسعيد" },

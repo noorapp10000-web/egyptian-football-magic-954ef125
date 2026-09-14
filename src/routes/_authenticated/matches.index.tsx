@@ -13,7 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshButton } from "@/components/hub/refresh-button";
 
-export const Route = createFileRoute("/matches/")({
+export const Route = createFileRoute("/_authenticated/matches/")({
   head: () => ({
     meta: [
       { title: "مباريات المصري | النتائج والمواعيد القادمة" },

@@ -8,7 +8,7 @@ import { RefreshButton } from "@/components/hub/refresh-button";
 import { Badge } from "@/components/ui/badge";
 import type { SquadPlayer } from "@/lib/hub-types";
 
-export const Route = createFileRoute("/squad")({
+export const Route = createFileRoute("/_authenticated/squad")({
   head: () => ({
     meta: [
       { title: "قائمة لاعبي المصري البورسعيدي | الفريق والجهاز الفني" },

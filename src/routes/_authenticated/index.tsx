@@ -26,7 +26,7 @@ import { TEAM_CREST } from "@/lib/hub-types";
 import { useScheduledRefresh } from "@/lib/scheduled-refresh";
 import { RefreshButton } from "@/components/hub/refresh-button";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
       { title: "المصري بورسعيد | مباريات وأخبار وترتيب لحظة بلحظة" },

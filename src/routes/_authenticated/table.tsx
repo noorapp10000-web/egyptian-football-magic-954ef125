@@ -11,7 +11,7 @@ import { ErrorNote, SectionHeading, SectionSkeleton, SourceNote } from "@/compon
 import { Badge } from "@/components/ui/badge";
 import { RefreshButton } from "@/components/hub/refresh-button";
 
-export const Route = createFileRoute("/table")({
+export const Route = createFileRoute("/_authenticated/table")({
   head: () => ({
     meta: [
       { title: "جدول ترتيب الدوري المصري | ترتيب المصري البورسعيدي" },

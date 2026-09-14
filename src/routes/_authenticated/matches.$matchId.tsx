@@ -29,7 +29,7 @@ import { intervalForMatchDetail } from "@/lib/refresh-policy";
 import { formatKickoff } from "@/lib/time";
 
 
-export const Route = createFileRoute("/matches/$matchId")({
+export const Route = createFileRoute("/_authenticated/matches/$matchId")({
   head: () => ({
     meta: [
       { title: "تفاصيل المباراة | المصري بورسعيد" },

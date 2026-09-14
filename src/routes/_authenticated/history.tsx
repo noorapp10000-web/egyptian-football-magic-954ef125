@@ -31,7 +31,7 @@ const CUP_GALLERY = CUP_EXTENSIONS.map((extension, index) => ({
 }));
 
 
-export const Route = createFileRoute("/history")({
+export const Route = createFileRoute("/_authenticated/history")({
   head: () => ({
     meta: [
       { title: "تاريخ النادي المصري البورسعيدي | 1920 حتى اليوم" },
