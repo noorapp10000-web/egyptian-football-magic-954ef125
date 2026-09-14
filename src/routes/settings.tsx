@@ -42,9 +42,23 @@ function SettingsPage() {
     if (ready) setName(prefs.username);
   }, [ready, prefs.username]);
 
-  const saveName = () => {
-    update({ username: name.trim() });
-    toast.success("تم حفظ الاسم");
+  const { saveUsername, saveNotifications, signedIn } = usePrefsSync(prefs, ready, update);
+
+  const saveName = async () => {
+    const value = name.trim();
+    update({ username: value });
+    await saveUsername(value);
+    toast.success(signedIn ? "تم حفظ الاسم على حسابك" : "تم حفظ الاسم");
+  };
+
+  const setNotificationsEnabled = (v: boolean) => {
+    update({ notificationsEnabled: v });
+    void saveNotifications(v, prefs.notifications);
+  };
+
+  const setNotificationType = (key: string, v: boolean) => {
+    toggleNotification(key, v);
+    void saveNotifications(prefs.notificationsEnabled, { ...prefs.notifications, [key]: v });
   };
 
   const clearCache = async () => {
